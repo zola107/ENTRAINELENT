@@ -1,67 +1,34 @@
-// Données des jeux
 const gamesDatabase = [
     {
         id: 1,
-        title: "Cyber Legends",
+        title: "Counter Strike",
         price: "59.99€",
         tags: ["Action", "FPS"],
-        icon: "🎮",
+        image: "images/cs.jpeg",
         installed: false
     },
     {
         id: 2,
-        title: "Fantasy Realm",
+        title: "Grounded",
         price: "49.99€",
         tags: ["RPG", "Aventure"],
-        icon: "⚔️",
+        image: "images/grounded.jpeg",
         installed: true
     },
     {
         id: 3,
-        title: "Speed Rivals",
+        title: "Rainbow Six Siege X",
         price: "39.99€",
-        tags: ["Course", "Sport"],
-        icon: "🏎️",
+        tags: ["Action", "FPS"],
+        image: "images/R6.jpeg",
         installed: false
     },
     {
         id: 4,
-        title: "Cosmos Explorer",
+        title: "Fortnite",
         price: "44.99€",
-        tags: ["Aventure", "Spatial"],
-        icon: "🚀",
-        installed: true
-    },
-    {
-        id: 5,
-        title: "Kingdom Wars",
-        price: "54.99€",
-        tags: ["Stratégie", "Medieval"],
-        icon: "🏰",
-        installed: false
-    },
-    {
-        id: 6,
-        title: "Dark Corridors",
-        price: "29.99€",
-        tags: ["Horreur", "Survie"],
-        icon: "👻",
-        installed: true
-    },
-    {
-        id: 7,
-        title: "Soccer Pro",
-        price: "49.99€",
-        tags: ["Sport", "Simulation"],
-        icon: "⚽",
-        installed: false
-    },
-    {
-        id: 8,
-        title: "Dragon Quest",
-        price: "59.99€",
-        tags: ["RPG", "Fantasy"],
-        icon: "🐉",
+        tags: ["Aventure"],
+        image: "images/fn.jpeg",
         installed: true
     }
 ];
@@ -75,12 +42,10 @@ function setupNavigation() {
         link.addEventListener('click', (e) => {
             e.preventDefault();
             const targetPage = link.getAttribute('data-page');
-            
-            // Mise à jour navigation active
+
             navLinks.forEach(l => l.classList.remove('active'));
             link.classList.add('active');
-            
-            // Affichage de la bonne page
+
             pages.forEach(p => p.classList.remove('active'));
             document.getElementById(`${targetPage}-page`).classList.add('active');
         });
@@ -91,10 +56,10 @@ function setupNavigation() {
 function buildGameCard(game) {
     const card = document.createElement('div');
     card.className = 'game-card';
-    
+
     card.innerHTML = `
         <div class="game-thumbnail">
-            ${game.icon}
+            <img src="${game.image}" alt="${game.title}">
         </div>
         <div class="game-details">
             <div class="game-name">${game.title}</div>
@@ -115,7 +80,7 @@ function buildGameCard(game) {
 function renderFeaturedGames() {
     const container = document.getElementById('featured-games');
     container.innerHTML = '';
-    
+
     gamesDatabase.forEach(game => {
         const card = buildGameCard(game);
         container.appendChild(card);
@@ -128,14 +93,14 @@ function renderFeaturedGames() {
 function renderLibrary() {
     const container = document.getElementById('library-games');
     container.innerHTML = '';
-    
+
     const installedGames = gamesDatabase.filter(game => game.installed);
-    
+
     if (installedGames.length === 0) {
-        container.innerHTML = '<p style="color: #666; text-align: center; grid-column: 1/-1; padding: 60px 20px;">Votre bibliothèque est vide</p>';
+        container.innerHTML = '<p style="color:#666;text-align:center;grid-column:1/-1;padding:60px 20px;">Votre bibliothèque est vide</p>';
         return;
     }
-    
+
     installedGames.forEach(game => {
         const card = buildGameCard(game);
         container.appendChild(card);
@@ -144,10 +109,10 @@ function renderLibrary() {
     setupGameButtons();
 }
 
-// Configurer les boutons d'action
+// Configurer les boutons
 function setupGameButtons() {
     const buttons = document.querySelectorAll('.game-action-btn');
-    
+
     buttons.forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
@@ -157,30 +122,28 @@ function setupGameButtons() {
     });
 }
 
-// Gérer les actions sur les jeux
+// Actions jeu
 function handleGameAction(gameId, button) {
     const game = gamesDatabase.find(g => g.id === gameId);
-    
+
     if (!game.installed) {
-        // Installation
         button.textContent = '⏳ Installation...';
         button.style.opacity = '0.6';
         button.disabled = true;
-        
+
         setTimeout(() => {
             game.installed = true;
             button.textContent = '▶ Jouer';
             button.style.opacity = '1';
             button.disabled = false;
-            
+
             showToast(`${game.title} installé avec succès !`, 'success');
             renderLibrary();
         }, 2000);
     } else {
-        // Lancer le jeu
         button.textContent = '⚡ Lancement...';
         button.style.opacity = '0.6';
-        
+
         setTimeout(() => {
             button.textContent = '▶ Jouer';
             button.style.opacity = '1';
@@ -189,7 +152,7 @@ function handleGameAction(gameId, button) {
     }
 }
 
-// Notification toast
+// Toast notification
 function showToast(message, type = 'info') {
     const toast = document.createElement('div');
     toast.style.cssText = `
@@ -202,71 +165,52 @@ function showToast(message, type = 'info') {
         border-radius: 12px;
         font-weight: 500;
         z-index: 1000;
-        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 10px 40px rgba(0,0,0,0.3);
         animation: slideUp 0.3s ease;
     `;
-    
+
     toast.textContent = message;
     document.body.appendChild(toast);
-    
+
     setTimeout(() => {
         toast.style.animation = 'slideDown 0.3s ease';
         setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
 
-// Ajouter animations CSS
+// Animations CSS
 const animations = document.createElement('style');
 animations.textContent = `
-    @keyframes slideUp {
-        from {
-            transform: translateY(100px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-    
-    @keyframes slideDown {
-        from {
-            transform: translateY(0);
-            opacity: 1;
-        }
-        to {
-            transform: translateY(100px);
-            opacity: 0;
-        }
-    }
+@keyframes slideUp {
+    from { transform: translateY(100px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+@keyframes slideDown {
+    from { transform: translateY(0); opacity: 1; }
+    to { transform: translateY(100px); opacity: 0; }
+}
 `;
 document.head.appendChild(animations);
 
 // Recherche
 function setupSearch() {
     const searchInput = document.querySelector('.search-input');
-    
+
     searchInput.addEventListener('input', (e) => {
         const query = e.target.value.toLowerCase();
         const gameCards = document.querySelectorAll('.game-card');
-        
+
         gameCards.forEach(card => {
             const title = card.querySelector('.game-name').textContent.toLowerCase();
-            
-            if (title.includes(query)) {
-                card.style.display = 'block';
-                card.style.animation = 'fadeIn 0.3s ease';
-            } else {
-                card.style.display = 'none';
-            }
+            card.style.display = title.includes(query) ? 'block' : 'none';
         });
     });
 }
 
-// Filtres bibliothèque
+// Filtres
 function setupFilters() {
     const chips = document.querySelectorAll('.chip');
-    
+
     chips.forEach(chip => {
         chip.addEventListener('click', () => {
             chips.forEach(c => c.classList.remove('active'));
@@ -275,18 +219,16 @@ function setupFilters() {
     });
 }
 
-// Animation au scroll
+// Scroll animation
 function setupScrollAnimations() {
-    const observer = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
             }
         });
-    }, {
-        threshold: 0.1
-    });
+    }, { threshold: 0.1 });
 
     document.querySelectorAll('.game-card, .category-item, .community-box, .help-item').forEach(el => {
         el.style.opacity = '0';
@@ -296,44 +238,40 @@ function setupScrollAnimations() {
     });
 }
 
-// Effet hover sur hero
+// Hero effect
 function setupHeroEffect() {
     const hero = document.querySelector('.hero-banner');
-    
-    if (hero) {
-        hero.addEventListener('mousemove', (e) => {
-            const rect = hero.getBoundingClientRect();
-            const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
-            const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
-            
-            hero.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
-        });
-        
-        hero.addEventListener('mouseleave', () => {
-            hero.style.transform = 'perspective(1000px) rotateY(0deg) rotateX(0deg)';
-        });
-    }
+
+    if (!hero) return;
+
+    hero.addEventListener('mousemove', (e) => {
+        const rect = hero.getBoundingClientRect();
+        const x = ((e.clientX - rect.left) / rect.width - 0.5) * 20;
+        const y = ((e.clientY - rect.top) / rect.height - 0.5) * 20;
+        hero.style.transform = `perspective(1000px) rotateY(${x}deg) rotateX(${-y}deg)`;
+    });
+
+    hero.addEventListener('mouseleave', () => {
+        hero.style.transform = 'perspective(1000px) rotateY(0) rotateX(0)';
+    });
 }
 
-// Effet parallaxe sur les cartes
+// Parallax cartes
 function setupCardParallax() {
     document.addEventListener('mousemove', (e) => {
-        const cards = document.querySelectorAll('.game-card:hover');
-        
-        cards.forEach(card => {
+        document.querySelectorAll('.game-card:hover').forEach(card => {
             const rect = card.getBoundingClientRect();
             const x = ((e.clientX - rect.left) / rect.width - 0.5) * 10;
             const y = ((e.clientY - rect.top) / rect.height - 0.5) * 10;
-            
             card.style.transform = `translateY(-4px) rotateY(${x}deg) rotateX(${-y}deg)`;
         });
     });
 }
 
-// Initialisation
+// Init
 document.addEventListener('DOMContentLoaded', () => {
     console.log('🎮 GameStore chargé');
-    
+
     setupNavigation();
     renderFeaturedGames();
     renderLibrary();
@@ -344,7 +282,7 @@ document.addEventListener('DOMContentLoaded', () => {
     setupCardParallax();
 });
 
-// Gestion du redimensionnement
+// Resize
 let resizeTimer;
 window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
@@ -352,3 +290,4 @@ window.addEventListener('resize', () => {
         console.log('Fenêtre redimensionnée');
     }, 250);
 });
+ è   
