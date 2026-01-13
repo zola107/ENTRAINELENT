@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GameStore - Votre bibliothèque de jeux</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <div class="logo">
+            <div class="logo-icon">G</div>
+            <span class="logo-text">GameStore</span>
+        </div>
+        
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active" data-page="store">
+                <span class="nav-icon">🏪</span>
+                <span class="nav-label">Boutique</span>
+            </a>
+            <a href="#" class="nav-link" data-page="library">
+                <span class="nav-icon">📚</span>
+                <span class="nav-label">Bibliothèque</span>
+            </a>
+            <a href="#" class="nav-link" data-page="community">
+                <span class="nav-icon">👥</span>
+                <span class="nav-label">Communauté</span>
+            </a>
+            <a href="#" class="nav-link" data-page="help">
+                <span class="nav-icon">💬</span>
+                <span class="nav-label">Aide</span>
+            </a>
+        </nav>
+
+        <div class="user-section">
+            <div class="user-avatar">👤</div>
+            <div class="user-info">
+                <div class="user-name">Joueur</div>
+                <div class="user-status">En ligne</div>
+            </div>
+        </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-wrapper">
+        <!-- Header -->
+        <header class="top-header">
+            <div class="search-container">
+                <input type="text" class="search-input" placeholder="Rechercher un jeu...">
+                <span class="search-icon">🔍</span>
+            </div>
+            <div class="header-actions">
+                <button class="icon-btn">🔔</button>
+                <button class="icon-btn">⚙️</button>
+            </div>
+        </header>
+
+        <!-- Store Page -->
+        <div class="page active" id="store-page">
+            <section class="hero-banner">
+                <div class="hero-overlay">
+                    <h1 class="hero-title">Découvrez les derniers jeux</h1>
+                    <p class="hero-subtitle">Explorez notre collection exclusive</p>
+                    <button class="hero-btn">Voir tout</button>
+                </div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Populaire en ce moment</h2>
+                    <a href="#" class="see-more">Voir plus →</a>
+                </div>
+                <div class="games-list" id="featured-games"></div>
+            </section>
+
+            <section class="content-section">
+                <div class="section-header">
+                    <h2>Catégories</h2>
+                </div>
+                <div class="categories-container">
+                    <div class="category-item">🎯 Action</div>
+                    <div class="category-item">🗡️ Aventure</div>
+                    <div class="category-item">🎲 RPG</div>
+                    <div class="category-item">♟️ Stratégie</div>
+                    <div class="category-item">⚽ Sport</div>
+                    <div class="category-item">🚁 Simulation</div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Library Page -->
+        <div class="page" id="library-page">
+            <div class="page-header">
+                <h1>Ma Bibliothèque</h1>
+                <div class="filter-chips">
+                    <button class="chip active">Tous</button>
+                    <button class="chip">Installés</button>
+                    <button class="chip">Récents</button>
+                </div>
+            </div>
+            <div class="games-list" id="library-games"></div>
+        </div>
+
+        <!-- Community Page -->
+        <div class="page" id="community-page">
+            <div class="page-header">
+                <h1>Communauté</h1>
+            </div>
+            <div class="community-grid">
+                <div class="community-box">
+                    <div class="box-icon">💬</div>
+                    <h3>Forums</h3>
+                    <p>Rejoignez les discussions avec d'autres joueurs</p>
+                </div>
+                <div class="community-box">
+                    <div class="box-icon">📖</div>
+                    <h3>Guides</h3>
+                    <p>Découvrez astuces et stratégies</p>
+                </div>
+                <div class="community-box">
+                    <div class="box-icon">🎨</div>
+                    <h3>Workshop</h3>
+                    <p>Créez et partagez du contenu</p>
+                </div>
+                <div class="community-box">
+                    <div class="box-icon">🏆</div>
+                    <h3>Tournois</h3>
+                    <p>Participez aux compétitions</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Help Page -->
+        <div class="page" id="help-page">
+            <div class="page-header">
+                <h1>Centre d'aide</h1>
+            </div>
+            <div class="help-grid">
+                <div class="help-item">
+                    <h3>📥 Installation</h3>
+                    <p>Guide pour installer vos jeux facilement</p>
+                </div>
+                <div class="help-item">
+                    <h3>🔌 Connexion</h3>
+                    <p>Résoudre les problèmes de connexion</p>
+                </div>
+                <div class="help-item">
+                    <h3>💳 Paiement</h3>
+                    <p>Informations sur les méthodes de paiement</p>
+                </div>
+                <div class="help-item">
+                    <h3>↩️ Remboursement</h3>
+                    <p>Politique de remboursement sous 14 jours</p>
+                </div>
+                <div class="help-item">
+                    <h3>🛡️ Sécurité</h3>
+                    <p>Protégez votre compte</p>
+                </div>
+                <div class="help-item">
+                    <h3>📧 Contact</h3>
+                    <p>Support disponible 24/7</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+</html>
