@@ -3,32 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameStore - Votre bibliothèque de jeux</title>
+    <title>Workshop - TechWave</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="logo">
-            <div class="logo-icon">G</div>
-            <span class="logo-text">GameStore</span>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">TechWave</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="forums.html">Forums</a></li>
+                <li><a href="guides.html">Guides</a></li>
+                <li><a href="workshop.html" class="active">Workshop</a></li>
+                <li><a href="tournois.html">Tournois</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </div>
-        
-        <nav class="sidebar-nav">
-            <a href="#" class="nav-link active" data-page="store">
-                <span class="nav-icon">🏪</span>
-                <span class="nav-label">Boutique</span>
-            </a>
-            <a href="#" class="nav-link" data-page="library">
-                <span class="nav-icon">📚</span>
-                <span class="nav-label">Bibliothèque</span>
-            </a>
-            <a href="#" class="nav-link" data-page="community">
-                <span class="nav-icon">👥</span>
-                <span class="nav-label">Communauté</span>
-            </a>
-            <a href="#" class="nav-link" data-page="help">
-                <span class="nav-icon">💬</span>
-                <span class="nav-label">Aide</span>
-            </a>
-        </nav>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Workshop Communautaire</h1>
+            <p>Partagez et téléchargez du contenu créé par la communauté</p>
+        </div>
+
+        <div class="workshop-actions">
+            <button class="btn-primary">Uploader un Mod</button>
+            <div class="search-bar">
+                <input type="text" placeholder="Rechercher dans le workshop...">
+                <button>🔍</button>
+            </div>
+        </div>
+
+        <div class="workshop-filters">
+            <select class="filter-select">
+                <option>Plus Récent</option>
+                <option>Plus Populaire</option>
+                <option>Mieux Noté</option>
+                <option>Plus Téléchargé</option>
+            </select>
+            <select class="filter-select">
+                <option>Toutes Catégories</option>
+                <option>Cartes</option>
+                <option>Skins</option>
+                <option>Modes de Jeu</option>
+                <option>Outils</option>
+            </select>
+        </div>
+
+        <div class="workshop-grid">
+            <div class="workshop-item">
+                <div class="workshop-thumbnail">
+                    <img src="https://via.placeholder.com/300x200" alt="Mod Preview">
+                    <span class="workshop-category">Carte</span>
+                </div>
+                <div class="workshop-info">
+                    <h3>Carte Futuriste v2.0</h3>
+                    <p class="workshop-author">Par JoueurPro</p>
+                    <div class="workshop-stats">
+                        <span>⬇️ 12.5k</span>
+                        <span>⭐ 4.8/5</span>
+                        <span>💬 234</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workshop-item">
+                <div class="workshop-thumbnail">
+                    <img src="https://via.placeholder.com/300x200" alt="Mod Preview">
+                    <span class="workshop-category">Skin</span>
+                </div>
+                <div class="workshop-info">
+                    <h3>Pack de Skins Premium</h3>
+                    <p class="workshop-author">Par DesignMaster</p>
+                    <div class="workshop-stats">
+                        <span>⬇️ 8.2k</span>
+                        <span>⭐ 4.9/5</span>
+                        <span>💬 156</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workshop-item">
+                <div class="workshop-thumbnail">
+                    <img src="https://via.placeholder.com/300x200" alt="Mod Preview">
+                    <span class="workshop-category">Mode</span>
+                </div>
+                <div class="workshop-info">
+                    <h3>Mode Survie Hardcore</h3>
+                    <p class="workshop-author">Par GameDev42</p>
+                    <div class="workshop-stats">
+                        <span>⬇️ 15.3k</span>
+                        <span>⭐ 4.7/5</span>
+                        <span>💬 412</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="workshop-item">
+                <div class="workshop-thumbnail">
+                    <img src="https://via.placeholder.com/300x200" alt="Mod Preview">
+                    <span class="workshop-category">Outil</span>
+                </div>
+                <div class="workshop-info">
+                    <h3>Éditeur de Carte Pro</h3>
+                    <p class="workshop-author">Par ToolMaker</p>
+                    <div class="workshop-stats">
+                        <span>⬇️ 6.7k</span>
+                        <span>⭐ 4.6/5</span>
+                        <span>💬 89</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pagination">
+            <button class="page-btn">« Précédent</button>
+            <button class="page-btn active">1</button>
+            <button class="page-btn">2</button>
+            <button class="page-btn">3</button>
+            <button class="page-btn">Suivant »</button>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 TechWave. Tous droits réservés.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

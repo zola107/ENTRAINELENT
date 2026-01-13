@@ -3,32 +3,99 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameStore - Votre bibliothèque de jeux</title>
+    <title>Forums - TechWave</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Sidebar -->
-    <aside class="sidebar">
-        <div class="logo">
-            <div class="logo-icon">G</div>
-            <span class="logo-text">GameStore</span>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">TechWave</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="forums.html" class="active">Forums</a></li>
+                <li><a href="guides.html">Guides</a></li>
+                <li><a href="workshop.html">Workshop</a></li>
+                <li><a href="tournois.html">Tournois</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </div>
-        
-        <nav class="sidebar-nav">
-            <a href="#" class="nav-link active" data-page="store">
-                <span class="nav-icon">🏪</span>
-                <span class="nav-label">Boutique</span>
-            </a>
-            <a href="#" class="nav-link" data-page="library">
-                <span class="nav-icon">📚</span>
-                <span class="nav-label">Bibliothèque</span>
-            </a>
-            <a href="#" class="nav-link" data-page="community">
-                <span class="nav-icon">👥</span>
-                <span class="nav-label">Communauté</span>
-            </a>
-            <a href="#" class="nav-link" data-page="help">
-                <span class="nav-icon">💬</span>
-                <span class="nav-label">Aide</span>
-            </a>
-        </nav>
+    </nav>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Forums de la Communauté</h1>
+            <p>Échangez avec d'autres joueurs et partagez vos expériences</p>
+        </div>
+
+        <div class="forums-container">
+            <div class="forum-category">
+                <h2>Discussions Générales</h2>
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h3>Nouveautés et Annonces</h3>
+                        <p>Restez informé des dernières mises à jour</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>125 discussions</span>
+                        <span>2.4k messages</span>
+                    </div>
+                </div>
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h3>Discussion Libre</h3>
+                        <p>Parlez de tout et de rien</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>890 discussions</span>
+                        <span>15.2k messages</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="forum-category">
+                <h2>Support Technique</h2>
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h3>Aide et Questions</h3>
+                        <p>Posez vos questions techniques</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>342 discussions</span>
+                        <span>5.1k messages</span>
+                    </div>
+                </div>
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h3>Bugs et Problèmes</h3>
+                        <p>Signalez les bugs rencontrés</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>156 discussions</span>
+                        <span>2.8k messages</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="forum-category">
+                <h2>Gameplay</h2>
+                <div class="forum-item">
+                    <div class="forum-info">
+                        <h3>Stratégies et Tactiques</h3>
+                        <p>Partagez vos meilleures stratégies</p>
+                    </div>
+                    <div class="forum-stats">
+                        <span>567 discussions</span>
+                        <span>9.3k messages</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 TechWave. Tous droits réservés.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

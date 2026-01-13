@@ -3,35 +3,110 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GameStore - Votre bibliothèque de jeux</title>
+    <title>Guides - TechWave</title>
     <link rel="stylesheet" href="style.css">
-    <h1 class="hero-title">Bienvenue sur l'espace guides</h1>
 </head>
 <body>
-    
-    <aside class="sidebar">
-        <div class="logo">
-            <div class="logo-icon">G</div>
-            <span class="logo-text">GameStore</span>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">TechWave</div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="forums.html">Forums</a></li>
+                <li><a href="guides.html" class="active">Guides</a></li>
+                <li><a href="workshop.html">Workshop</a></li>
+                <li><a href="tournois.html">Tournois</a></li>
+                <li><a href="contact.html">Contact</a></li>
+            </ul>
         </div>
-        
-        <nav class="sidebar-nav">
-            <a href="#" class="nav-link active" data-page="store">
-                <span class="nav-icon">🏪</span>
-                <span class="nav-label">Boutique</span>
-            </a>
-            <a href="#" class="nav-link" data-page="library">
-                <span class="nav-icon">📚</span>
-                <span class="nav-label">Bibliothèque</span>
-            </a>
-            <a href="#" class="nav-link" data-page="community">
-                <span class="nav-icon">👥</span>
-                <span class="nav-label">Communauté</span>
-            </a>
-            <a href="#" class="nav-link" data-page="help">
-                <span class="nav-icon">💬</span>
-                <span class="nav-label">Aide</span>
-            </a>
-        </nav>
+    </nav>
 
-        <h1>Bienvenue sur l'espace guides,</h1>
+    <main class="main-content">
+        <div class="page-header">
+            <h1>Guides et Tutoriels</h1>
+            <p>Apprenez tout ce qu'il faut savoir pour progresser</p>
+        </div>
+
+        <div class="guides-filters">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="debutant">Débutant</button>
+            <button class="filter-btn" data-filter="intermediaire">Intermédiaire</button>
+            <button class="filter-btn" data-filter="avance">Avancé</button>
+        </div>
+
+        <div class="guides-grid">
+            <div class="guide-card" data-level="debutant">
+                <div class="guide-badge">Débutant</div>
+                <h3>Guide du Débutant</h3>
+                <p>Tous les bases pour bien commencer votre aventure</p>
+                <div class="guide-meta">
+                    <span>📖 15 min</span>
+                    <span>⭐ 4.8/5</span>
+                </div>
+                <button class="btn-secondary">Lire le guide</button>
+            </div>
+
+            <div class="guide-card" data-level="intermediaire">
+                <div class="guide-badge">Intermédiaire</div>
+                <h3>Optimisation des Performances</h3>
+                <p>Comment obtenir les meilleures performances</p>
+                <div class="guide-meta">
+                    <span>📖 20 min</span>
+                    <span>⭐ 4.6/5</span>
+                </div>
+                <button class="btn-secondary">Lire le guide</button>
+            </div>
+
+            <div class="guide-card" data-level="avance">
+                <div class="guide-badge">Avancé</div>
+                <h3>Stratégies Compétitives</h3>
+                <p>Maîtrisez les techniques des meilleurs joueurs</p>
+                <div class="guide-meta">
+                    <span>📖 30 min</span>
+                    <span>⭐ 4.9/5</span>
+                </div>
+                <button class="btn-secondary">Lire le guide</button>
+            </div>
+
+            <div class="guide-card" data-level="debutant">
+                <div class="guide-badge">Débutant</div>
+                <h3>Configuration Recommandée</h3>
+                <p>Les meilleurs paramètres pour votre système</p>
+                <div class="guide-meta">
+                    <span>📖 10 min</span>
+                    <span>⭐ 4.7/5</span>
+                </div>
+                <button class="btn-secondary">Lire le guide</button>
+            </div>
+
+            <div class="guide-card" data-level="intermediaire">
+                <div class="guide-badge">Intermédiaire</div>
+                <h3>Techniques Avancées</h3>
+                <p>Passez au niveau supérieur avec ces techniques</p>
+                <div class="guide-meta">
+                    <span>📖 25 min</span>
+                    <span>⭐ 4.8/5</span>
+                </div>
+                <button class="btn-secondary">Lire le guide</button>
+            </div>
+
+            <div class="guide-card" data-level="avance">
+                <div class="guide-badge">Avancé</div>
+                <h3>Analyse Statistique</h3>
+                <p>Comprendre et analyser vos statistiques</p>
+                <div class="guide-meta">
+                    <span>📖 35 min</span>
+                    <span>⭐ 4.5/5</span>
+                </div>
+                <button class="btn-secondary">Lire le guide</button>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2026 TechWave. Tous droits réservés.</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
