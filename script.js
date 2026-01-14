@@ -30,7 +30,55 @@ const gamesDatabase = [
         tags: ["Aventure"],
         image: "images/fn.jpeg",
         installed: true
-    }
+    },
+    // ⬇️ AJOUTE ÇA ICI ⬇️
+    {
+        id: 5,
+        title: "Rololf R6",
+        price: "Gratuit",
+        tags: ["Aventure", "Plateforme"],
+        image: "images/rodolf.jpg",  // Crée une miniature ou utilise une image placeholder
+        installed: true,
+        gameLink: "games2.html"  // Le lien vers ton jeu
+    },
+    {
+        id: 6,
+        title: "snake",
+        price: "Gratuit",
+        tags: ["Aventure", "Plateforme"],
+        image: "images/snake.jpeg",  // Crée une miniature ou utilise une image placeholder
+        installed: true,
+        gameLink: "games.html"  // Le lien vers ton jeu
+     },
+     
+     {
+        id: 7,
+        title: "pong",
+        price: "Gratuit",
+        tags: ["Aventure", "Plateforme"],
+        image: "images/raff.jpeg",  // Crée une miniature ou utilise une image placeholder
+        installed: true,
+        gameLink: "games3.html"  // Le lien vers ton jeu
+     },
+
+     {
+        id: 7,
+        title: "Space Invader",
+        price: "Gratuit",
+        tags: ["Aventure", "Plateforme"],
+        image: "images/.jpeg",  // Crée une miniature ou utilise une image placeholder
+        installed: true,
+        gameLink: " games4.html"  // Le lien vers ton jeu
+     },
+    {
+        id: 7,
+        title: "Tetris",
+        price: "Gratuit",
+        tags: ["Aventure", "Plateforme"],
+        image: "images/snake.jpeg",  // Crée une miniature ou utilise une image placeholder
+        installed: true,
+        gameLink: "games5.html"  // Le lien vers ton jeu
+     }
 ];
 
 // Navigation entre les pages

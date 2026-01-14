@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Platformer Game</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            font-family: 'Arial', sans-serif;
+            min-height: 100vh;
+        }
+        
+        #gameCanvas {
+            border: 4px solid #fff;
+            border-radius: 10px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            background: #87CEEB;
+        }
+        
+        .ui {
+            background: white;
+            padding: 15px 30px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            display: flex;
+            gap: 30px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .score { color: #f39c12; }
+        .lives { color: #e74c3c; }
+        
+        .controls {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .controls p {
+            margin: 5px 0;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+    <div class="ui">
+        <div class="score">🪙 Score: <span id="scoreDisplay">0</span></div>
+        <div class="lives">❤️ Vies: <span id="livesDisplay">3</span></div>
+    </div>
+    
+    <canvas id="gameCanvas" width="800" height="600"></canvas>
+    
+    <div class="controls">
+        <p><strong>Contrôles:</strong> ← → pour bouger | ESPACE pour sauter</p>
+        <p>Collecte les pièces 🪙 et évite les ennemis 👾</p>
+    </div>
+
+    <script>
+        // CONFIGURATION DU JEU - Change ces valeurs pour modifier le jeu
+        const CONFIG = {
+            gravity: 0.1,           // Force de gravité (plus = tombe plus vite)
+            jumpForce: -8,         // Force du saut (plus négatif = saute plus haut)
+            moveSpeed: 5,           // Vitesse de déplacement
+            enemySpeed: 5,          // Vitesse des ennemis
+            coinValue: 10           // Points par pièce
+        };
+
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+
+        // VARIABLES DU JEU
+        let score = 0;
+        let lives = 3;
+        let gameOver = false;
+        let keys = {};
+
+        // JOUEUR - Le personnage que tu contrôles
+        const player = {
+            x: 100,                 // Position horizontale
+            y: 450,                 // Position verticale
+            width: 30,
+            height: 40,
+            velocityY: 0,           // Vitesse verticale (pour le saut)
+            isJumping: false,
+            color: '#3498db'
+        };
+
+        // PLATEFORMES - Les surfaces où on peut marcher
+        const platforms = [
+            { x: 0, y: 550, width: 800, height: 50, color: '#27ae60' },      // Sol
+            { x: 200, y: 450, width: 150, height: 20, color: '#2ecc71' },
+            { x: 450, y: 350, width: 150, height: 20, color: '#2ecc71' },
+            { x: 100, y: 250, width: 120, height: 20, color: '#2ecc71' },
+            { x: 600, y: 450, width: 100, height: 20, color: '#2ecc71' },
+             { x: 100, y: 500, width: 150, height: 20, color: '#2ecc71' }
+        ];
+
+        // PIÈCES - À collecter pour des points
+        let coins = [
+            { x: 250, y: 400, radius: 12, collected: false },
+            { x: 500, y: 300, radius: 12, collected: false },
+            { x: 150, y: 200, radius: 12, collected: false },
+            { x: 650, y: 400, radius: 12, collected: false },
+            { x: 400, y: 150, radius: 12, collected: false }
+        ];
+
+        // ENNEMIS - À éviter
+        let enemies = [
+            { x: 300, y: 420, width: 25, height: 25, direction: 1, speed: CONFIG.enemySpeed },
+            { x: 550, y: 320, width: 25, height: 25, direction: -1, speed: CONFIG.enemySpeed }
+        ];
+
+        // DÉTECTION DES TOUCHES - Enregistre quelles touches sont pressées
+        document.addEventListener('keydown', (e) => {
+            keys[e.code] = true;
+            if (e.code === 'Space' && !player.isJumping) {
+                player.velocityY = CONFIG.jumpForce;
+                player.isJumping = true;
+            }
+        });
+
+        document.addEventListener('keyup', (e) => {
+            keys[e.code] = false;
+        });
+
+        // FONCTION PRINCIPALE DU JEU - Appelée 60 fois par seconde
+        function gameLoop() {
+            if (gameOver) {
+                drawGameOver();
+                return;
+            }
+
+            update();   // Met à jour la logique
+            draw();     // Dessine tout
+            requestAnimationFrame(gameLoop);
+        }
+
+        // UPDATE - Met à jour toute la logique du jeu
+        function update() {
+            // Mouvement du joueur (← →)
+            if (keys['ArrowLeft']) {
+                player.x -= CONFIG.moveSpeed;
+            }
+            if (keys['ArrowRight']) {
+                player.x += CONFIG.moveSpeed;
+            }
+
+            // Appliquer la gravité
+            player.velocityY += CONFIG.gravity;
+            player.y += player.velocityY;
+
+            // Empêcher de sortir de l'écran
+            if (player.x < 0) player.x = 0;
+            if (player.x + player.width > canvas.width) player.x = canvas.width - player.width;
+
+            // Collision avec les plateformes
+            player.isJumping = true;
+            for (let platform of platforms) {
+                if (checkCollision(player, platform) && player.velocityY > 0) {
+                    player.y = platform.y - player.height;
+                    player.velocityY = 0;
+                    player.isJumping = false;
+                }
+            }
+
+            // Mouvement des ennemis (patrouille gauche-droite)
+            for (let enemy of enemies) {
+                enemy.x += enemy.direction * enemy.speed;
+                
+                // Faire demi-tour aux bords ou sur les plateformes
+                if (enemy.x <= 0 || enemy.x + enemy.width >= canvas.width) {
+                    enemy.direction *= -1;
+                }
+            }
+
+            // Vérifier collision avec les pièces
+            for (let coin of coins) {
+                if (!coin.collected) {
+                    const dist = Math.hypot(player.x + player.width/2 - coin.x, 
+                                           player.y + player.height/2 - coin.y);
+                    if (dist < coin.radius + 15) {
+                        coin.collected = true;
+                        score += CONFIG.coinValue;
+                        updateUI();
+                    }
+                }
+            }
+
+            // Vérifier collision avec les ennemis
+            for (let enemy of enemies) {
+                if (checkCollision(player, enemy)) {
+                    lives--;
+                    updateUI();
+                    
+                    if (lives <= 0) {
+                        gameOver = true;
+                    } else {
+                        // Repositionner le joueur au début
+                        player.x = 100;
+                        player.y = 450;
+                        player.velocityY = 0;
+                    }
+                }
+            }
+
+            // Tomber en dehors de l'écran = perd une vie
+            if (player.y > canvas.height) {
+                lives--;
+                updateUI();
+                
+                if (lives <= 0) {
+                    gameOver = true;
+                } else {
+                    player.x = 100;
+                    player.y = 450;
+                    player.velocityY = 0;
+                }
+            }
+        }
+
+        // DESSINER - Affiche tous les éléments du jeu
+        function draw() {
+            // Effacer l'écran (ciel)
+            ctx.fillStyle = '#87CEEB';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Dessiner les plateformes
+            for (let platform of platforms) {
+                ctx.fillStyle = platform.color;
+                ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
+                // Bordure
+                ctx.strokeStyle = '#229954';
+                ctx.lineWidth = 2;
+                ctx.strokeRect(platform.x, platform.y, platform.width, platform.height);
+            }
+
+            // Dessiner les pièces (celles non collectées)
+            for (let coin of coins) {
+                if (!coin.collected) {
+                    ctx.fillStyle = '#f39c12';
+                    ctx.beginPath();
+                    ctx.arc(coin.x, coin.y, coin.radius, 0, Math.PI * 2);
+                    ctx.fill();
+                    ctx.strokeStyle = '#d68910';
+                    ctx.lineWidth = 2;
+                    ctx.stroke();
+                }
+            }
+
+            // Dessiner les ennemis
+            for (let enemy of enemies) {
+                ctx.fillStyle = '#e74c3c';
+                ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+                
+                // Yeux de l'ennemi
+                ctx.fillStyle = 'white';
+                ctx.fillRect(enemy.x + 5, enemy.y + 5, 6, 6);
+                ctx.fillRect(enemy.x + 14, enemy.y + 5, 6, 6);
+                ctx.fillStyle = 'black';
+                ctx.fillRect(enemy.x + 7, enemy.y + 7, 3, 3);
+                ctx.fillRect(enemy.x + 16, enemy.y + 7, 3, 3);
+            }
+
+            // Dessiner le joueur
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+            
+            // Visage du joueur
+            ctx.fillStyle = 'white';
+            ctx.fillRect(player.x + 7, player.y + 10, 6, 6);
+            ctx.fillRect(player.x + 17, player.y + 10, 6, 6);
+            ctx.fillStyle = 'black';
+            ctx.fillRect(player.x + 9, player.y + 12, 3, 3);
+            ctx.fillRect(player.x + 19, player.y + 12, 3, 3);
+        }
+
+        // ÉCRAN GAME OVER
+        function drawGameOver() {
+            ctx.fillStyle = 'rgba(0,0,0,0.7)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.fillStyle = 'white';
+            ctx.font = 'bold 48px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText('GAME OVER', canvas.width/2, canvas.height/2 - 50);
+            
+            ctx.font = '24px Arial';
+            ctx.fillText(`Score Final: ${score}`, canvas.width/2, canvas.height/2 + 20);
+            ctx.fillText('Recharge la page pour rejouer', canvas.width/2, canvas.height/2 + 60);
+        }
+
+        // VÉRIFIER COLLISION entre deux rectangles
+        function checkCollision(rect1, rect2) {
+            return rect1.x < rect2.x + rect2.width &&
+                   rect1.x + rect1.width > rect2.x &&
+                   rect1.y < rect2.y + rect2.height &&
+                   rect1.y + rect1.height > rect2.y;
+        }
+
+        // METTRE À JOUR L'INTERFACE (score et vies)
+        function updateUI() {
+            document.getElementById('scoreDisplay').textContent = score;
+            document.getElementById('livesDisplay').textContent = lives;
+        }
+
+        // DÉMARRER LE JEU
+        gameLoop();
+    </script>
+</body>
+</html>
